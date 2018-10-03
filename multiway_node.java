@@ -12,8 +12,7 @@ public class multiway_node
 		String					name="";
 	
 	
-	
-	public multiway_node(String input_name,int input_duration,ArrayList<multiway_node> input_dependencies)
+	public multiway_node(String input_name,int input_duration)
 	{
 			
 				
@@ -25,6 +24,18 @@ public class multiway_node
 		    length_dependencies	= dependencies.size();
 		    	
 	}
+	public multiway_node()
+	{
+			status 		= false;
+			duration	= 0;
+			name		= "";
+		    dependencies = new ArrayList<multiway_node> ();
+		    connections	=  new ArrayList<multiway_node>();
+		    length_dependencies	= dependencies.size();
+	}
+	
+	
+	
 }
 	
 	
