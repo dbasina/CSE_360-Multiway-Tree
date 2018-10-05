@@ -42,7 +42,7 @@ class test
 		
 		tree.initialize_tree(node_list,node_dependencies);		
 		
-		/*
+		
 		//PRINT CHECK
 		for (int k=0;k<node_list.size();k++)
 		{
@@ -54,7 +54,8 @@ class test
 			System.out.println("");
 			
 		}
-		*/
+		
+		
 		
 	}
 }
