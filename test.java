@@ -40,10 +40,23 @@ class test
 		node_dependencies.add("node3");
 		node_dependencies.add("node4,node5,node6");
 		
-		tree.initialize_tree(node_list,node_dependencies);		
+		Collections.shuffle(node_list);
+		Collections.shuffle(node_dependencies);
+		
+		System.out.println(" The nodes and their dependencies before initialize_tree");
+		for (int i=0;i<node_list.size();i++)
+		{
+			System.out.println("Node: "+node_list.get(i).name+"\tDependencies: "+node_dependencies.get(i));
+		}
+		System.out.println("\n\n");
+		
+		
+		tree.initialize_tree(node_list,node_dependencies);	
 		
 		
 		//PRINT CHECK
+		System.out.println(" The nodes and their dependencies after initialize_tree printed by accessing each dependency from their nodes");
+		System.out.println("Root: "+tree.root.name);
 		for (int k=0;k<node_list.size();k++)
 		{
 			System.out.print("node: "+node_list.get(k).name+"\tDependencies: ");
