@@ -65,8 +65,65 @@ public class 	multiway_tree
 						
 			}
 					
-					
+			public void print_tree(multiway_node node)
+			{
+				if(node.connections.size()==0)
+				{
+					System.out.println(node.name);
+					return;
+				}
+				
+				else
+				{
+					System.out.println(node.name);
+					int i=0;
+					while(i<node.connections.size())
+					{
+						
+						print_tree(node.connections.get(i));
+						i++;
+					}
+				}
+			}
 			
+			public void print_paths(multiway_node node,ArrayList<String> path,int sum)
+			{
+				
+				if(node.connections.size()==0)
+				{
+					path.add(node.name);
+					sum = sum + (node.duration);
+					
+					for (int i=0;i<path.size();i++)
+					{
+						System.out.print(path.get(i)+" : ");						
+					}
+					
+					System.out.print(sum);
+					System.out.println("");
+					
+					path.remove(node.name);
+					sum = sum-(node.duration);
+					
+					return;
+				}
+				
+				else
+				{
+					int i=0;
+					while(i<node.connections.size())
+					{
+						path.add(node.name);
+						sum = sum + (node.duration);
+						
+						print_paths(node.connections.get(i),path,sum);
+								
+						path.remove(node.name);
+						sum = sum - (node.duration);
+						i++;
+					}
+				}
+			}
 }
 			
 			

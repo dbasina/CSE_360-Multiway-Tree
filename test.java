@@ -8,19 +8,12 @@ class test
 		multiway_tree tree = new multiway_tree();
 		
 		ArrayList<multiway_node> node_list = new ArrayList<multiway_node>();
-		multiway_node node1 = new multiway_node("node1",2);
-		multiway_node node2 = new multiway_node("node2",2);	
-		multiway_node node3 = new multiway_node("node3",2);
-		multiway_node node4 = new multiway_node("node4",2);
-		multiway_node node5 = new multiway_node("node5",2);	
-		multiway_node node6 = new multiway_node("node6",6);
-		multiway_node node7 = new multiway_node("node7",6);
 		
 		for (int i=1;i<8;i++)
 		{
 			String ch= Integer.toString(i);
 			String node_name= "node"+ch;
-			multiway_node temp= new multiway_node(node_name,2);
+			multiway_node temp= new multiway_node(node_name,i);
 			node_list.add(temp);
 		}
 		
@@ -40,22 +33,26 @@ class test
 		node_dependencies.add("node3");
 		node_dependencies.add("node4,node5,node6");
 		
-		Collections.shuffle(node_list);
-		Collections.shuffle(node_dependencies);
+		// Shuffle Test and print statements
+		//Collections.shuffle(node_list);
+		//Collections.shuffle(node_dependencies);
 		
-		System.out.println(" The nodes and their dependencies before initialize_tree");
+		System.out.println("\nRaw Data of Nodes");
 		for (int i=0;i<node_list.size();i++)
 		{
-			System.out.println("Node: "+node_list.get(i).name+"\tDependencies: "+node_dependencies.get(i));
+			System.out.println("Node: "+node_list.get(i).name+"\tDependencies: "+node_dependencies.get(i)+"\tDuration: "+node_list.get(i).duration);
 		}
 		System.out.println("\n\n");
 		
+		ArrayList<String> path = new ArrayList<String>();
+		int sum=0;
 		
 		tree.initialize_tree(node_list,node_dependencies);	
 		
 		
-		//PRINT CHECK
-		System.out.println(" The nodes and their dependencies after initialize_tree printed by accessing each dependency from their nodes");
+		//tree.print_tree(tree.root);
+		//Print iteratively
+		System.out.println("Data after Initializing Tree. ");
 		System.out.println("Root: "+tree.root.name);
 		for (int k=0;k<node_list.size();k++)
 		{
@@ -65,8 +62,12 @@ class test
 				System.out.print(node_list.get(k).dependencies.get(l).name+",");
 			}
 			System.out.println("");
+		
 			
 		}
+		
+		System.out.println("\nTree Paths and their time");
+		tree.print_paths(tree.root,path,sum);
 		
 		
 		
