@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class 	multiway_tree
 {
 			
-			int 	tree_size=0;
+			int 	size=0;
 			multiway_node			root;
 				
 			public void initialize_tree(ArrayList<multiway_node> input_list_main, ArrayList<String> dependency_list_main)
@@ -21,8 +21,12 @@ public class 	multiway_tree
 							input_list_main.get(t).string_dependencies.add(temp[u]);
 						}
 					}
+					
+					
 					int i=0;
+					
 					// Go to each node in input_list_main
+					
 					while (i<input_list_main.size())
 					{
 						// Access the node's string_dependencies ArrayList
@@ -37,6 +41,7 @@ public class 	multiway_tree
 							if (dep_string.equals("NULL"))
 							{
 								root= temp;
+								root.level = 0;
 							}
 							
 							// If not, then we iterate over the names of nodes in input_list_main
@@ -57,7 +62,14 @@ public class 	multiway_tree
 						
 						}
 						i++;
-					}
+					 }
+					 
+					 // 
+					 
+					 
+					 
+					 
+					 
 					
 
 					
@@ -86,18 +98,27 @@ public class 	multiway_tree
 				}
 			}
 			
-			public void print_paths(multiway_node node,ArrayList<String> path,int sum)
+			public void print_paths(multiway_node node,ArrayList<String> path,int sum,ArrayList<String> output_path)
 			{
+				// This method uses ArrayList path for storing the path string at the end of each recursion
+				// We use the ArrayList output_path to return each path as a string to a method that is calling
+				// output_path arraylist can be used later for sorting each path
 				
+				// we add and remove nodes that are visited multiple times during the forward and backward recursive calls 
+				// to prevent repetition while listing paths. We use the same logic to keep track of the sum of the durations. 
 				if(node.connections.size()==0)
 				{
 					path.add(node.name);
 					sum = sum + (node.duration);
-					
+					String temp ="";
+
 					for (int i=0;i<path.size();i++)
 					{
+						temp = temp+path.get(i)+":";
 						System.out.print(path.get(i)+" : ");						
 					}
+					temp = temp+ Integer.toString(sum);
+					output_path.add(temp);
 					
 					System.out.print(sum);
 					System.out.println("");
@@ -116,7 +137,7 @@ public class 	multiway_tree
 						path.add(node.name);
 						sum = sum + (node.duration);
 						
-						print_paths(node.connections.get(i),path,sum);
+						print_paths(node.connections.get(i),path,sum,output_path);
 								
 						path.remove(node.name);
 						sum = sum - (node.duration);
@@ -124,6 +145,7 @@ public class 	multiway_tree
 					}
 				}
 			}
+		
 }
 			
 			

@@ -5,7 +5,7 @@ public class multiway_node
 {
 		
 		boolean					status;
-		int						length_dependencies;
+		int						level;
 		int						duration;
 		ArrayList<String>		string_dependencies;
 		ArrayList<multiway_node>			dependencies;
@@ -22,7 +22,7 @@ public class multiway_node
 			name		= input_name;
 		    dependencies = new ArrayList<multiway_node> ();
 		    connections	=  new ArrayList<multiway_node>();
-		    length_dependencies	= dependencies.size();
+		    level	= 0;
 		    string_dependencies = new ArrayList<String>();
 		    	
 	}
@@ -34,7 +34,7 @@ public class multiway_node
 			string_dependencies = new ArrayList<String>();
 		    dependencies = new ArrayList<multiway_node> ();
 		    connections	=  new ArrayList<multiway_node>();
-		    length_dependencies	= dependencies.size();
+		    level	= 0;
 	}
 	
 	
