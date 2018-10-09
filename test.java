@@ -17,9 +17,10 @@ class test
 			String node_name= "node"+ch;
 			node_list_string.add(node_name);
 			duration_list.add(ch);
-		}
-				
-		// Create the dependencies and add them to the ArrayList. 
+		}		
+		
+		
+		// Regular node dependencies 
 		ArrayList<String> node_dependencies = new ArrayList<String>();
 		node_dependencies.add("NULL");
 		node_dependencies.add("node1");
@@ -29,9 +30,22 @@ class test
 		node_dependencies.add("node3");
 		node_dependencies.add("node4,node5,node6");
 		
-		// Shuffle Test and print statements
-		//Collections.shuffle(node_list);
-		//Collections.shuffle(node_dependencies);
+		
+		/*
+		// Cycle simulation dependencies.
+		ArrayList<String> node_dependencies = new ArrayList<String>();
+		node_dependencies.add("NULL");
+		node_dependencies.add("node1");
+		node_dependencies.add("node1,node7");
+		node_dependencies.add("node2");
+		node_dependencies.add("node2,node3");
+		node_dependencies.add("node3");
+		node_dependencies.add("node4,node5,node6");
+		*/
+		
+		// Shuffle raw data
+		Collections.shuffle(node_list_string);
+		Collections.shuffle(node_dependencies);	
 		
 		// Print the raw data that was initialized. 
 		System.out.println("\nRaw Data of Nodes");
@@ -42,33 +56,34 @@ class test
 		System.out.println("\n\n");
 		
 		
-		
-		tree.initialize_tree(node_list_string,node_dependencies,duration_list);	
-		
-		
-		//tree.print_tree(tree.root);
-		
-		
-		// Setup for computing the paths. 
+		// Initialize parameters that are needed to run certain tree functions. 
 		int sum=0;
 		ArrayList<String> path = new ArrayList<String>();
 		ArrayList<String> path_output = new ArrayList<String>();
-		System.out.println("\nTree Paths and their time");
+		ArrayList<String> errors = new ArrayList<String>();
 		
-		tree.print_paths(tree.root,path,sum,path_output);
-		
-		System.out.println("\n\nPrinting path using the path_output ArrayList");
-		for (int k=0;k<path_output.size();k++)
+		// Test Statements		
+		tree.initialize_tree(node_list_string,node_dependencies,duration_list);	
+		tree.cycle_check(tree.root,errors);
+		if (errors.size()==0)
 		{
-			System.out.println(path_output.get(k));
-		}
+			//tree.print_tree(tree.root);
+			tree.compute_paths(tree.root,path,sum,path_output);
+			tree.sort_paths(path_output);
+			System.out.println("\nPaths:");
+			for (int k=0;k<path_output.size();k++)
+			{
+				System.out.println(path_output.get(k));
 			
-	}
-	
-	public int path_duration(String path_entry)
-	{
-		String[] temp = path_entry.split(":");
-		int len = temp.length;
-		return Integer.parseInt(temp[len-1]);
+			}
+		
+		}
+		
+		else
+		{
+			System.out.println("Cycle Error Detected: Abort Program");
+		}
+		
+			
 	}
 }
