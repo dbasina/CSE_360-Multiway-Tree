@@ -7,24 +7,19 @@ class test
 	{
 		multiway_tree tree = new multiway_tree();
 		
-		ArrayList<multiway_node> node_list = new ArrayList<multiway_node>();
 		
+		ArrayList<String> node_list_string = new ArrayList<String>();
+		ArrayList<String> duration_list = new ArrayList<String>();
+		// Creating data to input.
 		for (int i=1;i<8;i++)
 		{
 			String ch= Integer.toString(i);
 			String node_name= "node"+ch;
-			multiway_node temp= new multiway_node(node_name,i);
-			node_list.add(temp);
+			node_list_string.add(node_name);
+			duration_list.add(ch);
 		}
-		
-		tree.size = node_list.size();
-		// Print names of nodes
-		/*
-		for (int j=0;j<7;j++)
-		{
-			System.out.println(node_list.get(j).name);
-		}*/
-		
+				
+		// Create the dependencies and add them to the ArrayList. 
 		ArrayList<String> node_dependencies = new ArrayList<String>();
 		node_dependencies.add("NULL");
 		node_dependencies.add("node1");
@@ -38,35 +33,24 @@ class test
 		//Collections.shuffle(node_list);
 		//Collections.shuffle(node_dependencies);
 		
+		// Print the raw data that was initialized. 
 		System.out.println("\nRaw Data of Nodes");
-		for (int i=0;i<node_list.size();i++)
+		for (int i=0;i<node_list_string.size();i++)
 		{
-			System.out.println("Node: "+node_list.get(i).name+"\tDependencies: "+node_dependencies.get(i)+"\tDuration: "+node_list.get(i).duration);
+			System.out.println("Node: "+node_list_string.get(i)+"\tDependencies: "+node_dependencies.get(i)+"\tDuration: "+duration_list.get(i));
 		}
 		System.out.println("\n\n");
 		
 		
-		int sum=0;
 		
-		tree.initialize_tree(node_list,node_dependencies);	
+		tree.initialize_tree(node_list_string,node_dependencies,duration_list);	
 		
 		
 		//tree.print_tree(tree.root);
-		//Print iteratively
-		System.out.println("Data after Initializing Tree. ");
-		System.out.println("Root: "+tree.root.name);
-		for (int k=0;k<node_list.size();k++)
-		{
-			System.out.print("node: "+node_list.get(k).name+"\tDependencies: ");
-			for (int l=0;l<node_list.get(k).dependencies.size();l++)
-			{
-				System.out.print(node_list.get(k).dependencies.get(l).name+",");
-			}
-			System.out.println("");
 		
-			
-		}
 		
+		// Setup for computing the paths. 
+		int sum=0;
 		ArrayList<String> path = new ArrayList<String>();
 		ArrayList<String> path_output = new ArrayList<String>();
 		System.out.println("\nTree Paths and their time");
@@ -74,22 +58,11 @@ class test
 		tree.print_paths(tree.root,path,sum,path_output);
 		
 		System.out.println("\n\nPrinting path using the path_output ArrayList");
-		
 		for (int k=0;k<path_output.size();k++)
 		{
 			System.out.println(path_output.get(k));
 		}
-		
-		
-		/* Levels Print
-		System.out.println("Data after assigning levels to nodes");
-		/System.out.println("Root: "+tree.root.name);
-		for (int k=0;k<node_list.size();k++)
-		{
-			System.out.println("node: "+node_list.get(k).name+"\tLevel: "+node_list.get(k).level);
 			
-		}
-		*/		
 	}
 	
 	public int path_duration(String path_entry)
